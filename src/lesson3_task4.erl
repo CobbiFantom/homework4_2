@@ -1,12 +1,16 @@
 -module(lesson3_task4).
 
--export([split/1]).
+-export([decode/2, split/1]).
+
+decode(Json, Type) ->
+    case Type of
+        proplist ->
+            split(Json);
+        map -> proplists:to_map(split(Json))
+    end.
 
 split(List) ->
     split(List, <<>>, <<>>, []).
-
-%%split(<<$[, Rest/binary>>, _Acc, Acc2, List) ->
-%%  open(Rest, <<>>, Acc2,List,[]);
 
 split(<<$', Rest/binary>>, Acc, Acc2, List) ->
     split(Rest, Acc, Acc2, List);
@@ -21,8 +25,4 @@ split(<<$,, Rest/binary>>, Acc, Acc2, List) ->
 split(<<X, Rest/binary>>, Acc, Acc2, List) ->
     split(Rest, <<Acc/binary, X>>, Acc2, List);
 split(<<>>, Acc, Acc2, List) ->
-    lesson3_task02:reverse([{Acc2,Acc}|List]).
-
-%%open(<<X, Rest/binary>>, Acc, Acc2, List, Temp) ->
-%% open(Rest, <<Acc/binary, X>>, Acc2, List, Temp);
-%%open(<<$], Rest/binary>>, Acc, Acc2, List, Temp) ->
+    lesson3_task2:reverse([{Acc2,Acc}|List]).
