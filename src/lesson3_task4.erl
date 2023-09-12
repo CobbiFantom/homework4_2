@@ -1,6 +1,6 @@
 -module(lesson3_task4).
 
--export([decode/2, split/1]).
+-export([decode/2]).
 
 decode(Json, Type) ->
     case Type of
